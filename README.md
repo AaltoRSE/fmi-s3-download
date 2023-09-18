@@ -28,7 +28,7 @@ conda activate env/
 
 Example run with
 ```
-python3 src/main.py test-data/urls.116.txt
+python3 download.py test-data/urls.116.txt
 ```
 
 The script will download the 116 urls in `test_data/urls.116.txt` into the default output folder `data/` using the default number of threads 4.
