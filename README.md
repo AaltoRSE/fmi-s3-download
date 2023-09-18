@@ -1,8 +1,12 @@
 # fmi-s3-downloader
 
+Script to download a list of urls from FMI S3 using a Python script.
+
+The script utilizes boto3 and multhreading.
+
 ## Install
 
-### Clone 
+### Clone source code
 
 Clone this repository
 ```
@@ -41,3 +45,11 @@ Lint script using
 ```
 black src && isort src
 ```
+
+
+## Expected problems
+
+The script does not work with non-public data as it uses anonymous download requests. See [here]() how to add the AWS credentials.
+
+The script does not specify [region]() which will most likely result in problems with other urls.
+
