@@ -16,7 +16,7 @@ cd fmi-s3-download
 
 ### Create conda environment
 
-Install [conda] if not already installed.
+Install [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) if not already installed.
 
 Create and activate environment
 ```
