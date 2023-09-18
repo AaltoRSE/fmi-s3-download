@@ -39,6 +39,7 @@ You can change the output folder using the option `--data_dir path-to-your-folde
 
 The number of concurrent threads can be changed with `--workers number-of-workers`. Start from, e.g., the default 4 and double the amount until you see no improvement.
 
+Logs are written by default to `logs/log.txt`.
 
 ## Developing
 
