@@ -1,11 +1,12 @@
-import boto3
 import argparse
 import logging
-from pathlib import Path
-from botocore import UNSIGNED
-from botocore.client import Config
 import time
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+import boto3
+from botocore import UNSIGNED
+from botocore.client import Config
 
 
 def parse_arguments():
@@ -35,7 +36,7 @@ def load_urls(input_file):
     """Read urls from an input text file (one url per row)."""
     with open(input_file, "r") as fin:
         urls = [line.strip() for line in fin if line.strip()]
-    
+
     logging.info(f".. Loaded {len(urls)} urls")
 
     return urls
@@ -43,11 +44,11 @@ def load_urls(input_file):
 
 def parse_url(url):
     """Parse an S3 URL into its bucket name and object key."""
-    
+
     stripped_url = url.replace("s3://", "")
     # Split the URL at the first slash
     bucket_name, object_key = stripped_url.split("/", 1)
-    
+
     return bucket_name, object_key
 
 
@@ -58,7 +59,7 @@ def download_single_url(url, data_dir):
     if output_file.is_file():
         logging.info(f".. Skipping, output file already exists: {output_file}")
         return
-    #with open(output_file, "wb") as fout:
+    # with open(output_file, "wb") as fout:
     #    client.download_fileobj(bucket_name, object_key, fout)
     client.download_file(bucket_name, object_key, output_file)
     logging.info(f".. Downloaded: {output_file}")
@@ -74,7 +75,6 @@ def download_multiple_urls(urls, data_dir, max_workers):
 
 
 def main():
-
     args = parse_arguments()
     setup_logging(args.log_file)
     logging.info("Load urls")
@@ -85,6 +85,5 @@ def main():
     logging.info(f"Finished. Consumed {time.time()-t:.3f} seconds.")
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
