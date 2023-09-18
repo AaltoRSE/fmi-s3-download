@@ -26,16 +26,16 @@ conda activate env/
 
 ## Example Run
 
-Example run with
+Run an example list of urls with
 ```
-python3 download.py test-data/urls.116.txt
+python3 download.py example-data/urls.116.txt
 ```
 
-The script will download the 116 urls in `test_data/urls.116.txt` into the default output folder `data/` using the default number of threads 4.
+The script will download the 116 urls in `test_data/urls.116.txt` into the default output folder `downloads/` using the default number of threads 4.
 
 Executing the command again will not download any new files as long as they already exist in the default output folder.
 
-You can change the output folder using the option `--data_dir path-to-your-folder`.
+You can change the output folder using the option `--download_dir path-to-your-folder`.
 
 The number of concurrent threads can be changed with `--workers number-of-workers`. Start from, e.g., the default 4 and double the amount until you see no improvement.
 

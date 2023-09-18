@@ -15,7 +15,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(prog="scrape", description="Scrape a list of urls")
 
     parser.add_argument("input_file", type=str)
-    parser.add_argument("--data_dir", type=str, default="data")
+    parser.add_argument("--download_dir", type=str, default="downloads")
     parser.add_argument("--log_file", type=str, default="logs/log.txt")
     parser.add_argument("--workers", type=int, default=4)
 
@@ -52,10 +52,10 @@ def parse_url(url):
     return bucket_name, object_key
 
 
-def download_single_url(url, data_dir):
+def download_single_url(url, download_dir):
     client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
     bucket_name, object_key = parse_url(url)
-    output_file = Path(data_dir) / Path(object_key.split("/")[-1])
+    output_file = Path(download_dir) / Path(object_key.split("/")[-1])
     if output_file.is_file():
         logging.info(f".. Skipping, output file already exists: {output_file}")
         return
@@ -65,13 +65,13 @@ def download_single_url(url, data_dir):
     logging.info(f".. Downloaded: {output_file}")
 
 
-def download_multiple_urls(urls, data_dir, max_workers):
-    Path(data_dir).mkdir(exist_ok=True, parents=True)
+def download_multiple_urls(urls, download_dir, max_workers):
+    Path(download_dir).mkdir(exist_ok=True, parents=True)
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         for url in urls:
             logging.info(f"URL: {url}")
-            executor.submit(download_single_url, url, data_dir)
+            executor.submit(download_single_url, url, download_dir)
 
 
 def main():
@@ -81,7 +81,7 @@ def main():
     urls = load_urls(args.input_file)
     logging.info("Start downloading objects")
     t = time.time()
-    download_multiple_urls(urls, args.data_dir, args.workers)
+    download_multiple_urls(urls, args.download_dir, args.workers)
     logging.info(f"Finished. Consumed {time.time()-t:.3f} seconds.")
 
 
