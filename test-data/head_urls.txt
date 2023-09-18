@@ -1,0 +1,10 @@
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281300_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281305_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281310_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281315_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281320_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281325_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281330_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281335_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281340_FIN-DBZ-250M.tif
+s3://fmi-opendata-radar-geotiff/2020/08/28/FIN-DBZ-250M/202008281345_FIN-DBZ-250M.tif

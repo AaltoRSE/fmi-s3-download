@@ -2,7 +2,10 @@ import boto3
 import argparse
 import logging
 from pathlib import Path
-from urllib.parse import urlparse
+from botocore import UNSIGNED
+from botocore.client import Config
+import time
+
 
 def parse_arguments():
     """Usage: scrape input_file --workers 4"""
@@ -32,6 +35,8 @@ def load_urls(input_file):
     with open(input_file, "r") as fin:
         urls = [line.strip() for line in fin if line.strip()]
     
+    logging.info(f".. Loaded {len(urls)} urls")
+
     return urls
 
 
@@ -46,25 +51,32 @@ def parse_url(url):
 
 
 def download(urls, data_dir, n_workers):
-    client = boto3.client("s3")
+    client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
     Path(data_dir).mkdir(exist_ok=True, parents=True)
 
     for url in urls:
         logging.info(f"URL: {url}")
         bucket_name, object_key = parse_url(url)
         output_file = Path(data_dir) / Path(object_key.split("/")[-1])
-        if not output_file.is_file():
-            client.download_file(bucket_name, object_key, output_file)
-            logging.info(f".. Downloaded: {output_file}")
-        else:
-            logging.info(f".. Skip, output file exists: {output_file}")
+        if output_file.is_file():
+            logging.info(f".. Skipping, output file already exists: {output_file}")
+            continue
+        #with open(output_file, "wb") as fout:
+        #    client.download_fileobj(bucket_name, object_key, fout)
+        client.download_fileobj(bucket_name, object_key, output_file)
+        logging.info(f".. Downloaded: {output_file}")
+
 
 def main():
 
     args = parse_arguments()
     setup_logging(args.log_file)
+    logging.info("Load urls")
     urls = load_urls(args.input_file)
+    logging.info("Start downloading objects")
+    t = time.time()
     download(urls, args.data_dir, args.workers)
+    logging.info(f"Finished. Consumed {time.time()-t:.3f} seconds.")
 
 
 
