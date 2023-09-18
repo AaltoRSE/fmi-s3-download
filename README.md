@@ -8,9 +8,10 @@ The script utilizes boto3 and multhreading.
 
 ### Clone source code
 
-Clone this repository
+Clone this repository and change directory
 ```
-git clone ZXXX
+git clone https://github.com/AaltoRSE/fmi-s3-download.git
+cd fmi-s3-download
 ```
 
 ### Create conda environment
@@ -49,7 +50,7 @@ black src && isort src
 
 ## Expected problems
 
-The script does not work with non-public data as it uses anonymous download requests. See [here]() how to add the AWS credentials.
+The script does not work with non-public data as it uses anonymous download requests. See [here](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html) how to add the AWS credentials.
 
-The script does not specify [region]() which will most likely result in problems with other urls.
+The script does not specify [region name](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html) which will most likely result in problems with other urls.
 
